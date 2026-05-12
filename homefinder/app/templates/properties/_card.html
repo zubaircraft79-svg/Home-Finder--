@@ -1,0 +1,14 @@
+<article class="property-card">
+  <a href="{{ url_for('properties.detail', property_id=property.id) }}"><img src="{{ property.image_url }}" alt="{{ property.title }}"></a>
+  <div class="property-body">
+    <div class="badges">
+      <span class="badge">{{ property.property_type }}</span>
+      <span class="badge {{ 'ok' if property.status == 'available' else 'warn' }}">{{ property.status }}</span>
+      {% if property.is_premium %}<span class="badge premium">Premium</span>{% endif %}
+    </div>
+    <h3><a href="{{ url_for('properties.detail', property_id=property.id) }}">{{ property.title }}</a></h3>
+    <p class="location">{{ property.location }} · {{ property.area_sq_m }} sq m</p>
+    <p class="price">€{{ "{:,}".format(property.price) }}</p>
+    <p class="subtle">{{ property.bedrooms }} bed · {{ property.bathrooms }} bath</p>
+  </div>
+</article>

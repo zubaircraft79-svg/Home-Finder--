@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-header compact"><h1>Notifications</h1><form method="post" action="{{ url_for('notifications.mark_read') }}"><button class="btn btn-primary">Mark all read</button></form></section>
+<section class="section stack">{% for n in notifications %}<article class="notice {{ '' if n.is_read else 'unread' }}"><strong>{{ n.title }}</strong><p>{{ n.message }}</p><small>{{ n.notification_type }} · {{ n.created_at.strftime('%Y-%m-%d %H:%M') }}</small></article>{% else %}<div class="empty-state"><h2>No notifications</h2></div>{% endfor %}</section>
+{% endblock %}

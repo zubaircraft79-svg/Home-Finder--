@@ -1,0 +1,6 @@
+{% extends "supervisor/_layout.html" %}
+{% block dash %}
+<h1>Activity logs</h1>
+<div class="table-wrap"><table><tr><th>Time</th><th>User</th><th>Role</th><th>Action</th><th>Description</th></tr>{% for log in logs.items %}<tr><td>{{ log.created_at.strftime('%Y-%m-%d %H:%M') }}</td><td>{{ log.user.email if log.user else 'guest' }}</td><td>{{ log.role }}</td><td>{{ log.action }}</td><td>{{ log.description }}</td></tr>{% endfor %}</table></div>
+<div class="pagination">{% if logs.has_prev %}<a href="{{ url_for('supervisor.activity_logs', page=logs.prev_num) }}">Previous</a>{% endif %}<span>Page {{ logs.page }}</span>{% if logs.has_next %}<a href="{{ url_for('supervisor.activity_logs', page=logs.next_num) }}">Next</a>{% endif %}</div>
+{% endblock %}

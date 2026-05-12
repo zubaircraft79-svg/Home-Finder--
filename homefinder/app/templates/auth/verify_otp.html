@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Verify OTP | HomeFinder{% endblock %}
+{% block content %}
+<section class="auth-shell">
+  <form class="form-card" method="post">
+    <h1>Verify OTP</h1>
+    <p class="subtle">Code expires after 5 minutes. Stored hashed in database.</p>
+    {% if dev_code %}
+      <div class="otp-reveal">
+        <span>Development OTP</span>
+        <strong>{{ dev_code }}</strong>
+      </div>
+    {% endif %}
+    <label>Six digit OTP<input name="otp" maxlength="6" inputmode="numeric" required></label>
+    <button class="btn btn-primary full" type="submit">Verify</button>
+    <p class="demo-box">Development mode shows OTP here because you are not logged in yet and cannot open account notifications before verification.</p>
+  </form>
+</section>
+{% endblock %}

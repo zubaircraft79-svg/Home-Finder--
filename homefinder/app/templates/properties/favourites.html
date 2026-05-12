@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-header compact"><h1>Saved favourites</h1></section>
+<section class="section">
+  {% if favourites %}<div class="property-grid">{% for fav in favourites %}{% set property = fav.property %}{% include "properties/_card.html" %}{% endfor %}</div>{% else %}<div class="empty-state"><h2>No favourites yet</h2><p>Save properties to compare later.</p></div>{% endif %}
+</section>
+{% endblock %}

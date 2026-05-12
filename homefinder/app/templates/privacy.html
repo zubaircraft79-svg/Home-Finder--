@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-header"><h1>Privacy and GDPR</h1><p>Prototype stores minimum demo account data, hashed passwords, hashed OTP codes, and activity logs for demonstration.</p></section>
+<section class="section two-col"><div><h2>Data handling</h2><p>Activity logs support audit and reporting. Scenario retention target is 3 months. Deletion requests are marked without removing demo-linked records.</p></div><aside class="info-panel"><h3>Deletion request</h3>{% if current_user.is_authenticated %}<form method="post" action="{{ url_for('main.request_data_deletion') }}"><button class="btn btn-primary full">Request deletion</button></form>{% else %}<a class="btn btn-primary full" href="{{ url_for('auth.login') }}">Login required</a>{% endif %}</aside></section>
+{% endblock %}

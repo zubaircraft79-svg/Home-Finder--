@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-header premium-header">
+  <p class="eyebrow">Premium services</p>
+  <h1>Featured homes, faster decisions</h1>
+  <p>Premium connects buyers to highlighted listings and gives sellers a clear way to promote serious properties inside HomeFinder.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="{{ url_for('properties.list_properties', premium='1', status='available') }}">View premium listings</a>
+    {% if current_user.is_authenticated and current_user.role == 'seller' %}
+      <a class="btn btn-light" href="{{ url_for('seller.property_create') }}">Promote a listing</a>
+    {% else %}
+      <a class="btn btn-light" href="{{ url_for('auth.register') }}">Join as seller</a>
+    {% endif %}
+  </div>
+</section>
+<section class="premium-services">
+  <article><span>01</span><h2>Featured placement</h2><p>Premium listings appear first in searches and carry a featured badge.</p></article>
+  <article><span>02</span><h2>Priority viewing signal</h2><p>Customers can identify promoted listings before sending enquiries or booking viewings.</p></article>
+  <article><span>03</span><h2>Seller promotion</h2><p>Sellers can mark a listing as premium and track customer views.</p></article>
+</section>
+<section class="section muted-band">
+  <div class="section-head"><h2>Current premium listings</h2><a href="{{ url_for('properties.list_properties', premium='1') }}">Open search</a></div>
+  <div class="property-grid">{% for property in premium %}{% include "properties/_card.html" %}{% else %}<div class="empty-state"><h2>No premium listings yet</h2><p>Seller-promoted listings will appear here.</p></div>{% endfor %}</div>
+</section>
+{% endblock %}

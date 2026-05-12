@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-shell"><form class="form-card" method="post"><h1>Enquire</h1><p class="subtle">{{ property.title }}</p><label>Name<input name="name" value="{{ current_user.full_name }}" required></label><label>Email<input type="email" name="email" value="{{ current_user.email }}" required></label><label>Phone<input name="phone" required></label><label>Message<textarea name="message" required>I am interested in this property.</textarea></label><button class="btn btn-primary full">Submit enquiry</button></form></section>
+{% endblock %}

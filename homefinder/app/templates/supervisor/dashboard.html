@@ -1,0 +1,7 @@
+{% extends "supervisor/_layout.html" %}
+{% block dash %}
+<h1>Supervisor dashboard</h1>
+<div class="stat-grid">{% for k,v in stats.items() %}<article><span>{{ k }}</span><strong>{{ v }}</strong></article>{% endfor %}</div>
+<h2>Most saved properties</h2>
+<div class="table-wrap"><table><tr><th>Property</th><th>Saves</th></tr>{% for title,count in saved %}<tr><td>{{ title }}</td><td>{{ count }}</td></tr>{% endfor %}</table></div>
+{% endblock %}

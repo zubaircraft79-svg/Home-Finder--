@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-shell"><form class="form-card" method="post"><h1>Schedule viewing</h1><p class="subtle">{{ property.title }}</p><label>Date<input type="date" name="preferred_date" required></label><label>Time<input type="time" name="preferred_time" required></label><label>Note<textarea name="note"></textarea></label><button class="btn btn-primary full">Request viewing</button></form></section>
+{% endblock %}

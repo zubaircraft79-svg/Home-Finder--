@@ -1,0 +1,5 @@
+{% extends "seller/_layout.html" %}
+{% block dash %}
+<div class="dash-head"><h1>My listings</h1><a class="btn btn-primary" href="{{ url_for('seller.property_create') }}">Post property</a></div>
+<div class="table-wrap"><table><tr><th>Title</th><th>Type</th><th>Location</th><th>Price</th><th>Status</th><th>Premium</th><th>Views</th><th></th></tr>{% for p, view_count in properties %}<tr><td><a class="table-link" href="{{ url_for('properties.detail', property_id=p.id) }}">{{ p.title }}</a></td><td>{{ p.property_type }}</td><td>{{ p.location }}</td><td>&euro;{{ "{:,}".format(p.price) }}</td><td>{{ p.status }}</td><td>{% if p.is_premium %}<span class="badge premium">Yes</span>{% else %}<span class="subtle">No</span>{% endif %}</td><td>{{ view_count }}</td><td class="table-actions"><a href="{{ url_for('seller.property_edit', property_id=p.id) }}">Edit</a><form method="post" action="{{ url_for('seller.property_delete', property_id=p.id) }}"><button>Deactivate</button></form></td></tr>{% endfor %}</table></div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "seller/_layout.html" %}
+{% block dash %}
+<h1>{{ 'Edit' if property else 'Post' }} property</h1>
+<form class="admin-form" method="post">
+  <label>Title<input name="title" value="{{ property.title if property else '' }}" required></label>
+  <label>Description<textarea name="description" required>{{ property.description if property else '' }}</textarea></label>
+  <div class="form-grid">
+    <label>Type<select name="property_type">{% for t in ['residential','commercial','rental'] %}<option value="{{ t }}" {% if property and property.property_type == t %}selected{% endif %}>{{ t }}</option>{% endfor %}</select></label>
+    <label>Status<select name="status">{% for s in ['available','unavailable'] %}<option value="{{ s }}" {% if property and property.status == s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
+    <label>Location<input name="location" value="{{ property.location if property else '' }}" required></label>
+    <label>Address<input name="address" value="{{ property.address if property else '' }}" required></label>
+    <label>Price<input type="number" name="price" value="{{ property.price if property else '' }}" required></label>
+    <label>Bedrooms<input type="number" name="bedrooms" value="{{ property.bedrooms if property else 0 }}"></label>
+    <label>Bathrooms<input type="number" name="bathrooms" value="{{ property.bathrooms if property else 0 }}"></label>
+    <label>Area sq m<input type="number" name="area_sq_m" value="{{ property.area_sq_m if property else '' }}" required></label>
+  </div>
+  <label>Amenities<input name="amenities" value="{{ property.amenities if property else '' }}"></label>
+  <label>Image URL<input name="image_url" value="{{ property.image_url if property else '' }}" placeholder="Main property photo URL"></label>
+  <label class="premium-toggle"><input type="checkbox" name="is_premium" {% if property and property.is_premium %}checked{% endif %}><span><strong>Promote as premium</strong><small>Feature this listing in premium search and premium page.</small></span></label>
+  <button class="btn btn-primary">Save listing</button>
+</form>
+{% endblock %}

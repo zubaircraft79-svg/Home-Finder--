@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="dash">
+  <aside class="sidebar">
+    <h2>Supervisor</h2>
+    <a href="{{ url_for('supervisor.dashboard') }}">Dashboard</a>
+    <a href="{{ url_for('supervisor.reports') }}">Reports</a>
+    <a href="{{ url_for('supervisor.activity_logs') }}">Activity logs</a>
+  </aside>
+  <div class="dash-main">{% block dash %}{% endblock %}</div>
+</section>
+{% endblock %}

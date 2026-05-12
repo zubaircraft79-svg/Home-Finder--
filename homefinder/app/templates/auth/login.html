@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Login | HomeFinder{% endblock %}
+{% block content %}
+<section class="auth-shell">
+  <form class="form-card" method="post">
+    <h1>Login</h1>
+    <p class="subtle">Password verified first. OTP follows.</p>
+    <label>Email<input type="email" name="email" required></label>
+    <label>Password<input type="password" name="password" required></label>
+    <button class="btn btn-primary full" type="submit">Continue</button>
+    <p class="demo-box">Demo: user@example.com / Password123!<br>seller@example.com / Seller123!<br>admin@example.com / Admin123!<br>supervisor@example.com / Supervisor123!</p>
+  </form>
+</section>
+{% endblock %}

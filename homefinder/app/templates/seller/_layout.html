@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="dash">
+  <aside class="sidebar">
+    <h2>Seller</h2>
+    <a href="{{ url_for('seller.dashboard') }}">Dashboard</a>
+    <a href="{{ url_for('seller.properties') }}">My listings</a>
+    <a href="{{ url_for('seller.enquiries') }}">Enquiries</a>
+    <a href="{{ url_for('seller.viewings') }}">Viewings</a>
+  </aside>
+  <div class="dash-main">{% block dash %}{% endblock %}</div>
+</section>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ property.title }} | HomeFinder{% endblock %}
+{% block content %}
+<section class="detail-hero">
+  <img src="{{ property.image_url }}" alt="{{ property.title }}">
+  <div class="detail-summary">
+    <div class="badges"><span class="badge">{{ property.property_type }}</span><span class="badge {{ 'ok' if property.status == 'available' else 'warn' }}">{{ property.status }}</span>{% if property.is_premium %}<span class="badge premium">Premium</span>{% endif %}</div>
+    <h1>{{ property.title }}</h1>
+    <p class="location">{{ property.address }}</p>
+    <p class="price">€{{ "{:,}".format(property.price) }}</p>
+    <p>{{ property.bedrooms }} bedrooms · {{ property.bathrooms }} bathrooms · {{ property.area_sq_m }} sq m</p>
+    <div class="actions-row">
+      {% if current_user.is_authenticated %}
+        {% if is_favourite %}<form method="post" action="{{ url_for('properties.remove_favourite', property_id=property.id) }}"><button class="btn btn-ghost">Remove favourite</button></form>{% else %}<form method="post" action="{{ url_for('properties.add_favourite', property_id=property.id) }}"><button class="btn btn-primary">Save</button></form>{% endif %}
+        <a class="btn btn-light" href="{{ url_for('properties.enquiry', property_id=property.id) }}">Enquire</a>
+        <a class="btn btn-light" href="{{ url_for('properties.booking', property_id=property.id) }}">Book viewing</a>
+      {% else %}<a class="btn btn-primary" href="{{ url_for('auth.login') }}">Login to enquire</a>{% endif %}
+    </div>
+  </div>
+</section>
+<section class="section two-col">
+  <div><h2>Description</h2><p>{{ property.description }}</p><h3>Amenities</h3><div class="amenities">{% for a in property.amenity_list %}<span>{{ a }}</span>{% endfor %}</div></div>
+  <aside class="info-panel">
+    <h3>Unavailable?</h3>
+    <p>Subscribe for similar listing notifications.</p>
+    {% if current_user.is_authenticated %}<form method="post" action="{{ url_for('properties.subscribe_similar', property_id=property.id) }}"><button class="btn btn-primary full">Subscribe</button></form>{% endif %}
+  </aside>
+</section>
+<section class="section muted-band"><div class="section-head"><h2>Similar properties</h2></div><div class="property-grid">{% for property in similar %}{% include "properties/_card.html" %}{% endfor %}</div></section>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <img class="hero-logo" src="{{ url_for('static', filename='images/homefinder-logo.png') }}" alt="HomeFinder logo">
+    <p class="eyebrow">Scenario 2 software engineering demo</p>
+    <h1>HomeFinder Portal</h1>
+    <p>Search residential, commercial, and rental properties with secure login, OTP simulation, dashboards, reporting, and GDPR-conscious workflows.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{{ url_for('properties.list_properties') }}">Browse properties</a>
+      <a class="btn btn-light" href="{{ url_for('main.premium_services') }}">Premium services</a>
+    </div>
+  </div>
+  <form class="search-panel" action="{{ url_for('properties.list_properties') }}">
+    <label>Keyword<input name="q" placeholder="Apartment, office, villa"></label>
+    <label>Location<input name="location" placeholder="Athens, Glyfada"></label>
+    <label>Type<select name="property_type"><option value="">Any</option><option>residential</option><option>commercial</option><option>rental</option></select></label>
+    <button class="btn btn-primary" type="submit">Search</button>
+  </form>
+</section>
+<section class="section">
+  <div class="section-head"><h2>Premium listings</h2><a href="{{ url_for('properties.list_properties', status='available') }}">View all</a></div>
+  <div class="property-grid">
+    {% for property in premium %}
+      {% include "properties/_card.html" %}
+    {% endfor %}
+  </div>
+</section>
+<section class="section muted-band">
+  <div class="section-head"><h2>Newest opportunities</h2></div>
+  <div class="property-grid">
+    {% for property in newest %}
+      {% include "properties/_card.html" %}
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends "admin/_layout.html" %}
+{% block dash %}
+<h1>Enquiries</h1>
+<div class="table-wrap"><table><tr><th>Property</th><th>Name</th><th>Message</th><th>Status</th></tr>{% for e in enquiries %}<tr><td>{{ e.property.title }}</td><td>{{ e.name }}<br><small>{{ e.email }}</small></td><td>{{ e.message }}</td><td><form method="post"><input type="hidden" name="enquiry_id" value="{{ e.id }}"><select name="status"><option>new</option><option {% if e.status == 'in_progress' %}selected{% endif %}>in_progress</option><option {% if e.status == 'resolved' %}selected{% endif %}>resolved</option></select><button>Update</button></form></td></tr>{% endfor %}</table></div>
+{% endblock %}

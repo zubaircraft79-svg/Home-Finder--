@@ -1,0 +1,9 @@
+{% extends "seller/_layout.html" %}
+{% block dash %}
+<div class="dash-head"><h1>Seller dashboard</h1><div class="actions-row"><a class="btn btn-light" href="{{ url_for('main.premium_services') }}">Premium options</a><a class="btn btn-primary" href="{{ url_for('seller.property_create') }}">Post property</a></div></div>
+<div class="stat-grid">{% for k,v in stats.items() %}<article><span>{{ k.replace('_',' ') }}</span><strong>{{ v }}</strong></article>{% endfor %}</div>
+<h2>Most viewed listings</h2>
+<div class="table-wrap"><table><tr><th>Property</th><th>Status</th><th>Views</th><th>Enquiries</th></tr>{% for property, view_count in top_properties %}<tr><td><a class="table-link" href="{{ url_for('properties.detail', property_id=property.id) }}">{{ property.title }}</a></td><td>{{ property.status }}</td><td>{{ view_count }}</td><td>{{ property.enquiries|length }}</td></tr>{% endfor %}</table></div>
+<h2>Recent enquiries</h2>
+<div class="table-wrap"><table><tr><th>Property</th><th>Customer</th><th>Status</th><th>Date</th></tr>{% for e in recent_enquiries %}<tr><td><a class="table-link" href="{{ url_for('properties.detail', property_id=e.property.id) }}">{{ e.property.title }}</a></td><td>{{ e.name }}<br><small>{{ e.email }}</small></td><td>{{ e.status }}</td><td>{{ e.created_at.strftime('%Y-%m-%d') }}</td></tr>{% endfor %}</table></div>
+{% endblock %}

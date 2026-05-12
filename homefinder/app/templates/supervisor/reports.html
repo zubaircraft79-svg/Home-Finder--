@@ -1,0 +1,5 @@
+{% extends "supervisor/_layout.html" %}
+{% block dash %}
+<div class="dash-head"><h1>Monthly reports</h1><form method="post" class="inline-form"><input type="number" name="month" min="1" max="12" value="{{ today.month }}"><input type="number" name="year" value="{{ today.year }}"><button class="btn btn-primary">Generate snapshot</button></form></div>
+<div class="table-wrap"><table><tr><th>Month</th><th>Searches</th><th>Enquiries</th><th>Favourites</th><th>Viewings</th><th>Popular</th></tr>{% for r in snapshots %}<tr><td>{{ r.month }}/{{ r.year }}</td><td>{{ r.total_searches }}</td><td>{{ r.total_enquiries }}</td><td>{{ r.total_favourites }}</td><td>{{ r.total_viewings }}</td><td>{{ r.popular_location }} · {{ r.popular_property_type }}</td></tr>{% endfor %}</table></div>
+{% endblock %}

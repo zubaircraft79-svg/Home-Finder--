@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Properties | HomeFinder{% endblock %}
+{% block content %}
+<section class="page-header compact"><h1>Property listings</h1><p>Backend search, filters, pagination, and sorting.</p></section>
+<section class="layout">
+  <aside class="filter-panel">
+    <form>
+      <label>Keyword<input name="q" value="{{ filters.q }}"></label>
+      <label>Location<input name="location" value="{{ filters.location }}"></label>
+      <label>Type<select name="property_type"><option value="">Any</option>{% for t in ['residential','commercial','rental'] %}<option value="{{ t }}" {% if filters.property_type == t %}selected{% endif %}>{{ t }}</option>{% endfor %}</select></label>
+      <label>Min price<input type="number" name="min_price" value="{{ filters.min_price or '' }}"></label>
+      <label>Max price<input type="number" name="max_price" value="{{ filters.max_price or '' }}"></label>
+      <label>Bedrooms<input type="number" name="bedrooms" value="{{ filters.bedrooms if filters.bedrooms is not none else '' }}"></label>
+      <label>Amenities<input name="amenities" value="{{ filters.amenities }}" placeholder="metro, parking"></label>
+      <label>Status<select name="status"><option value="">Any</option>{% for s in ['available','unavailable'] %}<option value="{{ s }}" {% if filters.status == s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
+      <label>Sort<select name="sort"><option value="newest">Newest</option><option value="price_low" {% if filters.sort == 'price_low' %}selected{% endif %}>Price low-high</option><option value="price_high" {% if filters.sort == 'price_high' %}selected{% endif %}>Price high-low</option></select></label>
+      <button class="btn btn-primary full">Apply filters</button>
+    </form>
+  </aside>
+  <div class="results">
+    {% if properties %}
+      <div class="property-grid">{% for property in properties %}{% include "properties/_card.html" %}{% endfor %}</div>
+      <div class="pagination">
+        {% if pagination.has_prev %}<a href="{{ url_for('properties.list_properties', page=pagination.prev_num, **query_args) }}">Previous</a>{% endif %}
+        <span>Page {{ pagination.page }} of {{ pagination.pages or 1 }}</span>
+        {% if pagination.has_next %}<a href="{{ url_for('properties.list_properties', page=pagination.next_num, **query_args) }}">Next</a>{% endif %}
+      </div>
+    {% else %}
+      <div class="empty-state"><h2>No properties found</h2><p>Adjust filters and try again.</p></div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

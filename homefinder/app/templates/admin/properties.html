@@ -1,0 +1,5 @@
+{% extends "admin/_layout.html" %}
+{% block dash %}
+<div class="dash-head"><h1>Property management</h1><a class="btn btn-primary" href="{{ url_for('admin.property_create') }}">Add property</a></div>
+<div class="table-wrap"><table><tr><th>Title</th><th>Type</th><th>Location</th><th>Price</th><th>Status</th><th></th></tr>{% for p in properties %}<tr><td>{{ p.title }}</td><td>{{ p.property_type }}</td><td>{{ p.location }}</td><td>€{{ "{:,}".format(p.price) }}</td><td>{{ p.status }}</td><td class="table-actions"><a href="{{ url_for('admin.property_edit', property_id=p.id) }}">Edit</a><form method="post" action="{{ url_for('admin.property_delete', property_id=p.id) }}"><button>Deactivate</button></form></td></tr>{% endfor %}</table></div>
+{% endblock %}
