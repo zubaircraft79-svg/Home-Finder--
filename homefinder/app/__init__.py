@@ -10,6 +10,7 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+
     db.init_app(app)
     login_manager.init_app(app)
 
@@ -41,7 +42,10 @@ def create_app(config_class=Config):
     def inject_notifications():
         unread = 0
         if current_user.is_authenticated:
-            unread = Notification.query.filter_by(user_id=current_user.id, is_read=False).count()
+            unread = Notification.query.filter_by(
+                user_id=current_user.id,
+                is_read=False
+            ).count()
         return {"unread_notifications": unread}
 
     @app.errorhandler(403)
@@ -60,18 +64,17 @@ def create_app(config_class=Config):
     def health():
         return jsonify(status="ok")
 
+    @app.cli.command("init-db")
+    def init_db_command():
+        with app.app_context():
+            db.create_all()
+        print("Database tables created.")
+
     @app.cli.command("seed")
     def seed_command():
         from .seed import seed_database
-        seed_database()
+        with app.app_context():
+            seed_database()
         print("Seeded HomeFinder demo data.")
-
-    with app.app_context():
-        db.create_all()
-        if app.config.get("AUTO_SEED"):
-            from .models import User
-            if User.query.count() == 0:
-                from .seed import seed_database
-                seed_database()
 
     return app
